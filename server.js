@@ -388,17 +388,22 @@ function findAvailablePort(startPort, maxAttempts = 15) {
   });
 }
 
-findAvailablePort(DEFAULT_PORT)
-  .then((port) => {
-    server.listen(port, () => {
-      console.log('\n===============================================================');
-      console.log('ScaleMatrix: Architecture Boundaries & Scaling Lab is LIVE!');
-      console.log('All 3 Architecture Codebases Mounted (01, 02, 03)');
-      console.log(`Open in your browser: http://localhost:${port}`);
-      console.log('===============================================================\n');
+const isDirectRun = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (isDirectRun && process.env.NODE_ENV !== 'test') {
+  findAvailablePort(DEFAULT_PORT)
+    .then((port) => {
+      server.listen(port, () => {
+        console.log('\n===============================================================');
+        console.log('ScaleMatrix: Architecture Boundaries & Scaling Lab is LIVE!');
+        console.log('All 3 Architecture Codebases Mounted (01, 02, 03)');
+        console.log(`Open in your browser: http://localhost:${port}`);
+        console.log('===============================================================\n');
+      });
+    })
+    .catch((err) => {
+      console.error('Failed to start server:', err);
+      process.exit(1);
     });
-  })
-  .catch((err) => {
-    console.error('Failed to start server:', err);
-    process.exit(1);
-  });
+}
+
+export { app, server };

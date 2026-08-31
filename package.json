@@ -10,6 +10,7 @@
     "start:monolith": "node 01-monolith/server.js",
     "start:modular": "node 02-modular-monolith/server.js",
     "start:microservices": "node 03-microservices/start-all.js",
+    "test": "node --test",
     "test:all": "node benchmark-suite.js"
   },
   "dependencies": {
