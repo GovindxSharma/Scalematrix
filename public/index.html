@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ScaleMatrix: Architecture Boundaries, DevOps & Cost Lab</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    
+    <!-- Top Navigation Bar (Mobile Optimized) -->
+    <header class="navbar">
+      <div class="nav-container">
+        
+        <!-- Clean Brand Logo & Simple Name -->
+        <div class="brand">
+          <div class="logo-box">
+            <svg class="icon" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+          </div>
+          <div>
+            <h1 class="logo-text">ScaleMatrix</h1>
+            <p class="logo-sub">DevOps Architecture & Cloud Cost Lab</p>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <!-- Step Navigation (Horizontal Scrollable on Mobile) -->
+          <div class="stage-stepper-container">
+            <div class="stage-stepper">
+              <button class="step-nav-btn active" id="navStep0" data-step="0" data-tooltip="Explore Why, What, How and the Architecture Mission Blueprint.">
+                <span class="step-num">0</span> Home / Blueprint
+              </button>
+              <button class="step-nav-btn" id="navStep1" data-step="1" data-tooltip="Explore Single Process Monolith limits and single-core CPU boundaries.">
+                <span class="step-num">1</span> Monolith
+              </button>
+              <button class="step-nav-btn" id="navStep2" data-step="2" data-tooltip="Explore Modular Monolith domain isolation and multi-core clustering.">
+                <span class="step-num">2</span> Modular Monolith
+              </button>
+              <button class="step-nav-btn" id="navStep3" data-step="3" data-tooltip="Explore Microservices network RPC latency and distributed concurrency.">
+                <span class="step-num">3</span> Microservices
+              </button>
+              <button class="step-nav-btn" id="navStep4" data-step="4" data-tooltip="View side-by-side comparison matrix, Decision Wizard & API Masterclass.">
+                <span class="step-num">4</span> Comparison & APIs
+              </button>
+              <button class="step-nav-btn" id="navStep5" data-step="5" data-tooltip="Explore System Design Capacity Calculator, CAP Theorem & SAGA Patterns.">
+                <span class="step-num">5</span> System Design & CAP
+              </button>
+            </div>
+          </div>
+
+          <div class="live-status" data-tooltip="Live WebSocket sync: Telemetry is computed and streamed in real time.">
+            <span class="status-dot online"></span>
+            <span id="wsStatusLabel">Ready</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="content-wrapper">
+
+      <!-- =============================================================== -->
+      <!-- GLOBAL DEVOPS HARDWARE & CLOUD COST CONTROLLER PANEL            -->
+      <!-- =============================================================== -->
+      <section class="card devops-control-card">
+        <div class="card-header-flex">
+          <div>
+            <h3 class="card-title">
+              <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+              DevOps Infrastructure & Hardware Customizer
+            </h3>
+            <p class="section-desc" style="margin-bottom: 0;">Dynamically allocate vCPU processors, RAM, NGINX, Kafka/RabbitMQ, and calculate real-time cloud infrastructure cost ($/month):</p>
+          </div>
+          
+          <!-- Live Cost Pill -->
+          <div class="live-cost-badge-box">
+            <span class="cost-lbl">ESTIMATED CLOUD COST:</span>
+            <strong class="cost-val mono text-primary" id="costTotalMonthly">$33.50 / mo</strong>
+            <span class="cost-sub mono" id="costPerMillion">$0.0035 / 1M reqs</span>
+          </div>
+        </div>
+
+        <!-- Live Server Host Auto-Detection Banner -->
+        <div class="host-specs-banner" id="hostSpecsBanner" style="margin-top: 10px;">
+          <div class="host-specs-info">
+            <span class="status-dot online"></span>
+            <span class="host-lbl">DEPLOYED SERVER HARDWARE:</span>
+            <strong class="mono" id="hostSpecsText">Detecting live host environment...</strong>
+          </div>
+          <button id="btnSyncHostSpecs" class="btn btn-secondary btn-sm" data-tooltip="Auto-calibrate simulation sliders to match this actual running server instance.">
+            <svg class="icon-sm" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            Auto-Sync Host Specs
+          </button>
+        </div>
+
+        <div class="devops-grid" style="margin-top: 12px;">
+          
+          <!-- Control 1: vCPU Cores -->
+          <div class="devops-control-item">
+            <div class="slider-meta">
+              <label for="devopsCpuSlider">vCPU Processor Cores:</label>
+              <strong id="valDevopsCpu" class="mono text-primary">1 vCPU Core</strong>
+            </div>
+            <input type="range" id="devopsCpuSlider" min="1" max="32" step="1" value="1" class="sim-slider" />
+            <div class="slider-ticks">
+              <span>1 Core (Monolith)</span>
+              <span>4 Cores</span>
+              <span>8 Cores</span>
+              <span>16 Cores</span>
+              <span>32 Cores</span>
+            </div>
+          </div>
+
+          <!-- Control 2: RAM Memory -->
+          <div class="devops-control-item">
+            <div class="slider-meta">
+              <label for="devopsRamSlider">RAM Memory Allocation:</label>
+              <strong id="valDevopsRam" class="mono text-primary">2 GB RAM</strong>
+            </div>
+            <input type="range" id="devopsRamSlider" min="0.5" max="32" step="0.5" value="2" class="sim-slider" />
+            <div class="slider-ticks">
+              <span>512 MB</span>
+              <span>4 GB</span>
+              <span>8 GB</span>
+              <span>16 GB</span>
+              <span>32 GB</span>
+            </div>
+          </div>
+
+          <!-- Control 3: Load Balancer Layer -->
+          <div class="devops-control-item">
+            <label class="wizard-label" style="margin-bottom: 6px;">Load Balancer / Ingress:</label>
+            <div class="custom-dropdown" data-target="devopsLbSelect">
+              <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dropdown-value">None (Direct Ingress)</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="custom-dropdown-menu" role="listbox">
+                <div class="custom-dropdown-item selected" role="option" data-value="none">None (Direct Node Ingress - $0)</div>
+                <div class="custom-dropdown-item" role="option" data-value="nginx">NGINX Reverse Proxy (Keepalive - $12/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="alb">Cloud Application Load Balancer ($22.50/mo)</div>
+              </div>
+              <input type="hidden" id="devopsLbSelect" value="none" />
+            </div>
+          </div>
+
+          <!-- Control 4: Message Broker / Event Stream -->
+          <div class="devops-control-item">
+            <label class="wizard-label" style="margin-bottom: 6px;">Message Broker Layer:</label>
+            <div class="custom-dropdown" data-target="devopsBrokerSelect">
+              <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dropdown-value">None (Synchronous DB Writes)</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="custom-dropdown-menu" role="listbox">
+                <div class="custom-dropdown-item selected" role="option" data-value="none">None (Synchronous DB Contention - $0)</div>
+                <div class="custom-dropdown-item" role="option" data-value="redis">Redis Streams / BullMQ ($20/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="rabbitmq">RabbitMQ AMQP Broker ($45/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="kafka">Apache Kafka Distributed Stream ($95/mo)</div>
+              </div>
+              <input type="hidden" id="devopsBrokerSelect" value="none" />
+            </div>
+          </div>
+
+          <!-- Control 5: Client Geography / Region -->
+          <div class="devops-control-item">
+            <label class="wizard-label" style="margin-bottom: 6px;">Client Geography & Speed-of-Light:</label>
+            <div class="custom-dropdown" data-target="devopsRegionSelect">
+              <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dropdown-value">US-East (Virginia - 4.5ms)</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="custom-dropdown-menu" role="listbox">
+                <div class="custom-dropdown-item selected" role="option" data-value="us_east">US-East (N. Virginia - 4.5ms)</div>
+                <div class="custom-dropdown-item" role="option" data-value="eu_central">EU-Central (Frankfurt - 82ms)</div>
+                <div class="custom-dropdown-item" role="option" data-value="ap_south">AP-South (Mumbai - 158ms)</div>
+                <div class="custom-dropdown-item" role="option" data-value="global_anycast">Global Anycast CDN Edge (11.5ms)</div>
+              </div>
+              <input type="hidden" id="devopsRegionSelect" value="us_east" />
+            </div>
+          </div>
+
+          <!-- Control 6: Database Engine Architecture -->
+          <div class="devops-control-item">
+            <label class="wizard-label" style="margin-bottom: 6px;">Database Engine Architecture:</label>
+            <div class="custom-dropdown" data-target="devopsDbEngineSelect">
+              <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dropdown-value">PostgreSQL (Single ACID Node)</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="custom-dropdown-menu" role="listbox">
+                <div class="custom-dropdown-item selected" role="option" data-value="postgres_single">PostgreSQL (Single ACID - $30/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="postgres_replicas">PostgreSQL + 3 Read-Replicas ($75/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="cockroach_distributed">CockroachDB Multi-Region ($190/mo)</div>
+                <div class="custom-dropdown-item" role="option" data-value="mongo_sharded">MongoDB Sharded Cluster ($140/mo)</div>
+              </div>
+              <input type="hidden" id="devopsDbEngineSelect" value="postgres_single" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Chaos Engineering & Fault Injection Toolbar -->
+        <div class="chaos-toolbar-box" style="margin-top: 14px;">
+          <div class="palette-header">
+            <span class="palette-title text-danger">
+              <svg class="icon-sm text-danger" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Chaos Engineering Fault Injection (Test Real-World Failure Scenarios):
+            </span>
+          </div>
+
+          <div class="chaos-triggers-row" style="margin-top: 8px;">
+            <button class="btn-chaos" id="btnChaosDb" data-tooltip="Simulates total outage of primary database. Tests SPOF vs Worker Buffering vs Circuit Breaker fallbacks.">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              Kill Primary Database
+            </button>
+
+            <button class="btn-chaos" id="btnChaosJitter" data-tooltip="Injects 200ms inter-service RPC network jitter. Demonstrates cascading timeout collapse across REST microservices.">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              Inject 200ms Network Jitter
+            </button>
+
+            <button class="btn-chaos" id="btnChaosSurge" data-tooltip="Injects sudden 10x Black Friday traffic rush. Tests event loop backpressure and socket queues.">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              10x Flash-Sale Surge
+            </button>
+
+            <button class="btn btn-secondary btn-sm" id="btnChaosReset" data-tooltip="Restores normal operating conditions and clears all injected faults.">
+              Clear Faults (Normal)
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Drag & Drop Architecture Playground Palette -->
+        <div class="playground-palette-box" style="margin-top: 14px;">
+          <div class="palette-header">
+            <span class="palette-title">
+              <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              Architecture Drag & Drop Playground (Click or Drag Components into System):
+            </span>
+          </div>
+          
+          <div class="palette-items-row" style="margin-top: 8px;">
+            <div class="palette-chip" draggable="true" data-type="nginx" data-tooltip="Drag or click to attach NGINX Reverse Proxy for connection keepalive and load balancing.">
+              <svg class="chip-icon text-emerald" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <span>+ NGINX Load Balancer</span>
+            </div>
+
+            <div class="palette-chip" draggable="true" data-type="redis" data-tooltip="Drag or click to attach Redis In-Memory Cache (0.08ms read latency).">
+              <svg class="chip-icon text-danger" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <span>+ Redis Cache / BullMQ</span>
+            </div>
+
+            <div class="palette-chip" draggable="true" data-type="rabbitmq" data-tooltip="Drag or click to attach RabbitMQ AMQP Message Broker for reliable write queues.">
+              <svg class="chip-icon text-amber" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              <span>+ RabbitMQ Broker</span>
+            </div>
+
+            <div class="palette-chip" draggable="true" data-type="kafka" data-tooltip="Drag or click to attach Apache Kafka Partitioned Stream for 200,000+ req/s throughput.">
+              <svg class="chip-icon text-purple" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+              <span>+ Apache Kafka Stream</span>
+            </div>
+
+            <div class="palette-chip" draggable="true" data-type="cpu" data-tooltip="Drag or click to add +2 vCPU processor cores to compute pool.">
+              <svg class="chip-icon text-primary" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>
+              <span>+ Add 2x vCPU Cores</span>
+            </div>
+
+            <div class="palette-chip" draggable="true" data-type="pod" data-tooltip="Drag or click to scale +2 Pod Replicas for microservices mesh.">
+              <svg class="chip-icon text-purple" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle></svg>
+              <span>+ Add 2x Pod Replicas</span>
+            </div>
+          </div>
+
+          <!-- Active Attached Components Bar -->
+          <div class="active-attached-bar" style="margin-top: 10px;">
+            <span class="active-lbl">MOUNTED ARCHITECTURE EXTENSIONS:</span>
+            <div class="active-chips-tray" id="activeChipsTray">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 0: HOME PORTAL & ARCHITECTURE MISSION BLUEPRINT           -->
+      <!-- =============================================================== -->
+      <section class="lab-stage active" id="stage0">
+        
+        <!-- Home Hero Banner -->
+        <div class="home-hero-card card">
+          <div class="hero-tag-row">
+            <span class="badge-pill bg-blue">SCALE MATRIX MISSION BLUEPRINT</span>
+            <span class="badge-pill bg-emerald">EMPIRICAL PROFILING LAB</span>
+          </div>
+          <h2 class="home-hero-title">Empirical Backend Architecture & Scalability Laboratory</h2>
+          <p class="home-hero-desc">
+            Stop making architectural decisions based on industry hype. ScaleMatrix gives you live, data-driven empirical proof of when to keep a Monolith, when to cluster a Modular Monolith, and when to extract distributed Microservices.
+          </p>
+
+          <div class="home-cta-row" style="margin-top: 16px;">
+            <button class="btn btn-primary" id="btnHomeStartLab">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Start Architecture Journey (Stage 1)
+            </button>
+            <button class="btn btn-secondary" id="btnHomeJumpCalc">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="10" x2="8.01" y2="10"></line><line x1="12" y1="10" x2="12.01" y2="10"></line><line x1="16" y1="10" x2="16.01" y2="10"></line></svg>
+              System Design Capacity Calculator
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-Pillars: WHY, WHAT, HOW, GOAL Grid -->
+        <div class="home-pillars-grid" style="margin-top: 16px;">
+          
+          <div class="pillar-card card">
+            <div class="pillar-header">
+              <span class="badge-pill bg-danger">1. WHY WE ARE DOING THIS</span>
+              <h4>The Premature Optimization Trap</h4>
+            </div>
+            <p>
+              Over 80% of engineering teams prematurely migrate to Microservices. They take on distributed transaction hell, 20ms+ network hop serialization taxes, and $10x cloud bills before ever hitting single-server Monolith CPU limits (35,000+ req/s).
+            </p>
+          </div>
+
+          <div class="pillar-card card">
+            <div class="pillar-header">
+              <span class="badge-pill bg-blue">2. WHAT THIS LABORATORY IS</span>
+              <h4>Empirical Boundary Profiler</h4>
+            </div>
+            <p>
+              ScaleMatrix maps real physical hardware breaking points: single-core event loop lockouts, SQL database row lock contention, inter-service gRPC vs REST serialization latency, and multi-region speed-of-light propagation delays.
+            </p>
+          </div>
+
+          <div class="pillar-card card">
+            <div class="pillar-header">
+              <span class="badge-pill bg-emerald">3. HOW IT ACTUALLY WORKS</span>
+              <h4>Real Side-by-Side Codebases</h4>
+            </div>
+            <p>
+              All 3 architectural paradigms are mounted live under 1 unified API with nano-second timing (<code class="mono">process.hrtime.bigint()</code>), 1-click Chaos Engineering fault injection, and dynamic multi-cloud ROI cost modeling.
+            </p>
+          </div>
+
+          <div class="pillar-card card">
+            <div class="pillar-header">
+              <span class="badge-pill bg-purple">4. WHAT OUR GOAL IS</span>
+              <h4>Evidence-Based Architecture</h4>
+            </div>
+            <p>
+              Empower backend engineers and system architects with definitive, reproducible evidence to size infrastructure, prevent outages, and scale reliably from 0 to 1,000,000+ requests per second with zero guesswork.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Plain English Explanation: The Everyday Kitchen Analogy -->
+        <div class="card analogy-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Software Architecture Explained in Plain English (The Kitchen Analogy)
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">If you are confused by technical jargon, understand backend scaling with this simple food & kitchen analogy:</p>
+            </div>
+          </div>
+
+          <div class="analogy-grid" style="margin-top: 14px;">
+            <div class="analogy-item">
+              <span class="badge-pill bg-blue">STAGE 1: THE MONOLITH</span>
+              <strong>The Solo Chef in a Food Truck</strong>
+              <p>One person takes the order, chops the vegetables, cooks the steak, and washes the pans in one room. It is super fast with zero communication delays. But when 100 hungry people rush the window at once, the chef gets overwhelmed and food burns.</p>
+              <div class="analogy-tip"><strong>Everyday Fix:</strong> Pre-cut veggies in bulk ahead of time (In-Memory Hash Caching).</div>
+            </div>
+
+            <div class="analogy-item">
+              <span class="badge-pill bg-emerald">STAGE 2: MODULAR MONOLITH</span>
+              <strong>The Restaurant with Specialized Stations</strong>
+              <p>Multiple chefs work in the same large kitchen. One chef handles burgers, another handles drinks, and another handles desserts. They pass order slips along a wire line (Event Bus). If the drink blender jams, the grill chef keeps grilling without stopping.</p>
+              <div class="analogy-tip"><strong>Everyday Benefit:</strong> 10x more orders handled without paying high delivery fees.</div>
+            </div>
+
+            <div class="analogy-item">
+              <span class="badge-pill bg-purple">STAGE 3: MICROSERVICES</span>
+              <strong>Separate Specialized Shops Across the City</strong>
+              <p>The bakery, the butcher, and the smoothie shop are in separate buildings across town. When someone orders a meal, a courier must drive across traffic between all 3 shops (Network RPC Latency). Great if you have 1,000 workers, but costly for small teams!</p>
+              <div class="analogy-tip"><strong>Everyday Rule:</strong> Only open separate shops when one kitchen physically overflows.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Interactive Learning Tracks -->
+        <div class="card home-tracks-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Masterclass Learning Tracks & Architectural Roadmaps
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Click any track to jump directly into the interactive simulation and diagnostics:</p>
+            </div>
+          </div>
+
+          <div class="tracks-grid" style="margin-top: 14px;">
+            
+            <div class="track-item" data-goto="1">
+              <div class="track-num mono">TRACK 01</div>
+              <strong>The Single Monolith: Event Loop & CPU Saturation</strong>
+              <p>Explore single JavaScript thread limits (~35k req/s), unindexed array scans, and O(1) in-memory hash caching.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(1)">Launch Stage 1 &rarr;</button>
+            </div>
+
+            <div class="track-item" data-goto="2">
+              <div class="track-num mono">TRACK 02</div>
+              <strong>Modular Monolith: Domain Isolation & Event Buses</strong>
+              <p>Segregate catalog and order modules in 1 repo. Eliminate SQL table locks via asynchronous in-memory event buses.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(2)">Launch Stage 2 &rarr;</button>
+            </div>
+
+            <div class="track-item" data-goto="3">
+              <div class="track-num mono">TRACK 03</div>
+              <strong>Microservices Mesh: Network Hops & Redlock Mutexes</strong>
+              <p>Analyze HTTP REST serialization lag vs binary gRPC HTTP/2 multiplexing, circuit breakers, and distributed locks.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(3)">Launch Stage 3 &rarr;</button>
+            </div>
+
+            <div class="track-item" data-goto="4">
+              <div class="track-num mono">TRACK 04</div>
+              <strong>DevOps Customizer & Multi-Cloud ROI ($/month)</strong>
+              <p>Live vCPU and RAM provisioning, Apache Kafka vs RabbitMQ message brokers, and live AWS vs GCP vs DigitalOcean pricing.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(4)">Launch Stage 4 &rarr;</button>
+            </div>
+
+            <div class="track-item" data-goto="4">
+              <div class="track-num mono">TRACK 05</div>
+              <strong>API Protocols, Wire Framing & Rate Limiting</strong>
+              <p>JSON vs Protocol Buffers wire size, HTTP/1.1 vs HTTP/2 vs HTTP/3 QUIC, and Token Bucket vs Leaky Bucket defense.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(4)">Launch API Masterclass &rarr;</button>
+            </div>
+
+            <div class="track-item" data-goto="5">
+              <div class="track-num mono">TRACK 06</div>
+              <strong>System Design Capacity Planner & CAP Theorem</strong>
+              <p>DAU to QPS calculation, RAM cache sizing (80/20 rule), storage growth rate, and SAGA pattern step-by-step rollback.</p>
+              <button class="btn btn-secondary btn-sm" onclick="goToStage(5)">Launch System Design &rarr;</button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 1: THE MONOLITH                                           -->
+      <!-- =============================================================== -->
+      <section id="stage1View" class="lab-stage hidden" style="margin-top: 16px;">
+        
+        <!-- Stage Header Card -->
+        <div class="card stage-hero-card">
+          <div class="stage-badge-row">
+            <span class="badge-pill bg-blue">STAGE 1 OF 3</span>
+            <span class="badge-pill bg-slate">Single Process Node</span>
+          </div>
+          <h2 class="stage-title">The Single Monolith: Architecture & Physical Breaking Points</h2>
+          <p class="stage-desc">
+            All routing, domain logic, and database queries run inside a single JavaScript thread and process. Learn how it works, observe its physical single-core CPU ceiling, and see how to optimize it.
+          </p>
+        </div>
+
+        <!-- How, What & Why Educational Summary Grid -->
+        <div class="card info-summary-card">
+          <div class="info-grid">
+            <div class="info-cell">
+              <span class="info-tag bg-blue">WHAT IT IS</span>
+              <p>A single deployable unit where all features share one memory space, one CPU event loop, and one database pool.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-emerald">HOW IT WORKS</span>
+              <p>Direct in-memory function execution with 0.00ms network hop latency. Reads and writes execute directly against local data structures.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-danger">WHY IT BREAKS</span>
+              <p>A single CPU core reaches 100% capacity around 35,000 req/s, and synchronous SQL queries block the single thread.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-purple">HOW TO SCALE</span>
+              <p>Add in-memory caching (Redis/RAM) to bypass database queries for 85% of reads, then cluster across multiple CPU cores.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plain English Real-World Example -->
+        <div class="card plain-example-card" style="margin-top: 12px;">
+          <div class="plain-example-header">
+            <span class="badge-pill bg-blue">PLAIN ENGLISH ANALOGY</span>
+            <strong>The Solo Chef in a Food Truck</strong>
+          </div>
+          <p>
+            Imagine a single chef who takes orders at the window, chops vegetables, fries burgers, and washes pans.
+            When 5 customers order, food is served immediately. But when 100 people rush the truck at once, the chef is stuck cutting onions while fries burn (100% CPU lock).
+            <strong>The Everyday Fix:</strong> Pre-chop popular sauces and ingredients ahead of time (In-Memory Hash Caching), so orders fly out in 0.05 seconds!
+          </p>
+        </div>
+
+        <div class="stage-split-grid">
+          
+          <!-- Left: Architecture Diagram & Stress Controller -->
+          <div class="card arch-diagram-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                Live Architecture Topology
+              </h3>
+              <button class="btn-link-code" id="btnCodeMono" data-tooltip="Inspect the exact backend code implementation and bottlenecks.">
+                <svg class="icon-sm" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                View Code Diff
+              </button>
+            </div>
+
+            <!-- Visual Node Diagram -->
+            <div class="topology-box">
+              <div class="topo-node topo-client" data-tooltip="Virtual clients sending concurrent HTTP requests.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <strong id="clientLoadLabel1">5,000 Users</strong>
+                <span>Concurrent Ingress</span>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label">HTTP REST</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <div class="topo-node topo-monolith" id="topoMonolithNode" data-tooltip="Single Node.js process with 1 active event loop thread.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>
+                </div>
+                <strong id="topoMonoCoresTitle">Monolith (1 Core)</strong>
+                <span id="topoMonolithState">Single Event Loop</span>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label" id="topoDbHopLabel">Sync SQL Writes</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <div class="topo-node topo-db" id="topoMonolithDb" data-tooltip="Shared database handling disk file queries.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                </div>
+                <strong>Shared Database</strong>
+                <span id="topoDbState">File Disk I/O</span>
+              </div>
+            </div>
+
+            <!-- Experiment Trigger Box with Slider & Burst Button -->
+            <div class="experiment-action-box">
+              <div class="exp-status-row">
+                <span class="exp-label">Configuration State:</span>
+                <span class="status-pill status-unopt" id="monolithConfigLabel">Unoptimized (Zero Caching)</span>
+              </div>
+
+              <!-- Load Intensity Slider -->
+              <div class="stress-intensity-box">
+                <div class="slider-meta">
+                  <label for="sliderStress1">Load Volume (Requests):</label>
+                  <strong id="valStress1" class="mono text-primary">5,000 req</strong>
+                </div>
+                <input type="range" id="sliderStress1" min="1000" max="80000" step="1000" value="5000" class="sim-slider" />
+                <div class="slider-ticks">
+                  <span>1k (Light)</span>
+                  <span>20k</span>
+                  <span>35k (1-Core Max)</span>
+                  <span>80k+</span>
+                </div>
+              </div>
+
+              <div class="button-row" style="margin-top: 12px;">
+                <button id="btnTestMonolith" class="btn btn-primary" data-tooltip="Executes the selected request volume against the configured hardware.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  Inject Load
+                </button>
+
+                <button id="btnRampMonolith" class="btn btn-danger" data-tooltip="Automatically ramps stress in steps until the configured compute ceiling hits 100% and collapses.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                  Ramp Stress Till Burst
+                </button>
+
+                <button id="btnFixMonolith" class="btn btn-success hidden" data-tooltip="Applies in-memory caching and connection pooling to increase single-core speed.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Apply Fix
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Live Telemetry & Breaking Point Advisor -->
+          <div class="telemetry-column">
+            
+            <!-- Live Telemetry Box -->
+            <div class="card telemetry-card">
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Live Dynamic Telemetry
+              </h3>
+
+              <div class="telemetry-gauges-grid">
+                
+                <div class="gauge-item" data-tooltip="Number of real requests processed per second.">
+                  <div class="gauge-meta">
+                    <span>Throughput (Speed)</span>
+                    <strong class="mono text-primary" id="telMonoRps">-- req/s</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-blue" id="barMonoRps" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="95% of users receive responses faster than this threshold.">
+                  <div class="gauge-meta">
+                    <span>95% Response Time (p95)</span>
+                    <strong class="mono" id="telMonoLatency">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-amber" id="barMonoLatency" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="CPU core load. 100% means configured vCPUs are fully saturated.">
+                  <div class="gauge-meta">
+                    <span>CPU Core Utilization</span>
+                    <strong class="mono" id="telMonoCpu">-- %</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-danger" id="barMonoCpu" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="Time requests wait for synchronous database row and table locks.">
+                  <div class="gauge-meta">
+                    <span>Database Lock Wait Time</span>
+                    <strong class="mono" id="telMonoDbLock">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-danger" id="barMonoDbLock" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottleneck & Scaling Advisor Card -->
+            <div class="card advisor-diagnosis-card hidden" id="diagMonoCard">
+              <div class="diag-header">
+                <span class="diag-badge" id="diagMonoBadge">BOTTLENECK DIAGNOSIS</span>
+                <h4 class="diag-title" id="diagMonoTitle">Single Event Loop Saturated</h4>
+              </div>
+              <p class="diag-desc" id="diagMonoDesc">
+                The single JavaScript event loop is blocking while waiting for synchronous database file I/O locks.
+              </p>
+
+              <div class="advice-recommend-box">
+                <div class="advice-lbl">WHAT RESOURCE TO INCREASE:</div>
+                <strong id="adviceMonoAction">Add In-Memory Cache (Redis/RAM) & DB Connection Pool</strong>
+                <p id="adviceMonoImpact" class="advice-impact">Bypasses disk writes for 85% of traffic, jumping throughput from 4,000 to ~28,000 req/s.</p>
+              </div>
+
+              <div class="diag-footer">
+                <button id="btnAutoFixMono" class="btn btn-success btn-block" style="margin-bottom: 8px;">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  1-Click Auto-Scale & Apply Fix
+                </button>
+                <button id="btnAdvanceToStage2" class="btn btn-outline-primary btn-block hidden">
+                  Advance to Stage 2: Modular Monolith
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 2: THE MODULAR MONOLITH                                   -->
+      <!-- =============================================================== -->
+      <section id="stage2View" class="lab-stage hidden" style="margin-top: 16px;">
+        
+        <!-- Stage Header Card -->
+        <div class="card stage-hero-card">
+          <div class="stage-badge-row">
+            <span class="badge-pill bg-emerald">STAGE 2 OF 3</span>
+            <span class="badge-pill bg-slate">Domain Isolated + Multi-Core Cluster</span>
+          </div>
+          <h2 class="stage-title">The Modular Monolith: Multi-Core Clustering & Transaction Boundaries</h2>
+          <p class="stage-desc">
+            Domains (Catalog, Orders, Inventory) are strictly isolated and clustered across multiple CPU cores (`cluster.fork()`). Learn how it handles scale and observe what happens when cross-domain database transactions collide.
+          </p>
+        </div>
+
+        <!-- How, What & Why Educational Summary Grid -->
+        <div class="card info-summary-card">
+          <div class="info-grid">
+            <div class="info-cell">
+              <span class="info-tag bg-blue">WHAT IT IS</span>
+              <p>A single codebase with strict internal domain boundaries clustered across multiple physical CPU workers.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-emerald">HOW IT WORKS</span>
+              <p>Domains communicate via an asynchronous in-memory event bus. Worker processes distribute HTTP requests across CPU cores.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-danger">WHY IT BREAKS</span>
+              <p>Synchronous inter-domain SQL transactions cause database lock queue saturation when traffic exceeds configured capacity.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-purple">HOW TO SCALE</span>
+              <p>Add asynchronous write-behind queues (BullMQ/Redis/Kafka) to turn database writes into non-blocking event batches.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plain English Real-World Example -->
+        <div class="card plain-example-card" style="margin-top: 12px;">
+          <div class="plain-example-header">
+            <span class="badge-pill bg-emerald">PLAIN ENGLISH ANALOGY</span>
+            <strong>The Well-Organized Restaurant with Order Slips</strong>
+          </div>
+          <p>
+            Instead of 1 solo chef doing everything, you hire 4 chefs in one big kitchen. One chef only grills burgers, one prepares drinks, and one bakes desserts.
+            Instead of shouting and blocking each other, they pass paper tickets on an order line (Event Bus).
+            If the ice cream machine breaks, the burger chef keeps cooking at full speed without stopping!
+          </p>
+        </div>
+
+        <div class="stage-split-grid">
+          
+          <!-- Left: Topology & Stress Controller -->
+          <div class="card arch-diagram-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">
+                <svg class="icon-sm text-emerald" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Modular Cluster Topology
+              </h3>
+              <button class="btn-link-code" id="btnCodeMod" data-tooltip="Inspect the modular domain code and event bus implementation.">
+                <svg class="icon-sm" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                View Code Diff
+              </button>
+            </div>
+
+            <!-- Visual Node Diagram -->
+            <div class="topology-box">
+              <div class="topo-node topo-client" data-tooltip="Virtual clients sending concurrent cluster requests.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <strong id="clientLoadLabel2">25,000 Users</strong>
+                <span>High Concurrency</span>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label">Load Balancer</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <div class="topo-node topo-modular" id="topoModularNode" data-tooltip="Worker processes clustered across physical CPU cores.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </div>
+                <strong id="topoModCoresTitle">4x Worker Cluster</strong>
+                <span id="topoModularState">Domains: Catalog / Orders</span>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label" id="topoModularDbHopLabel">Sync Cross-Table Lock</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <div class="topo-node topo-db" id="topoModularDb" data-tooltip="Shared database with domain-segregated table schemas.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                </div>
+                <strong>Segregated Schemas</strong>
+                <span id="topoModularDbState">SQL Table Mutex</span>
+              </div>
+            </div>
+
+            <!-- Experiment Trigger Box with Slider & Burst Mode -->
+            <div class="experiment-action-box">
+              <div class="exp-status-row">
+                <span class="exp-label">Configuration State:</span>
+                <span class="status-pill status-unopt" id="modularConfigLabel">Synchronous Inter-Domain Transactions</span>
+              </div>
+
+              <!-- Load Intensity Slider -->
+              <div class="stress-intensity-box">
+                <div class="slider-meta">
+                  <label for="sliderStress2">Load Volume (Requests):</label>
+                  <strong id="valStress2" class="mono text-primary">25,000 req</strong>
+                </div>
+                <input type="range" id="sliderStress2" min="5000" max="150000" step="5000" value="25000" class="sim-slider" />
+                <div class="slider-ticks">
+                  <span>5k (Light)</span>
+                  <span>50k</span>
+                  <span>85k (4-Core Burst)</span>
+                  <span>150k+</span>
+                </div>
+              </div>
+
+              <div class="button-row" style="margin-top: 12px;">
+                <button id="btnTestModular" class="btn btn-primary" data-tooltip="Executes the selected request volume against the configured Modular Monolith cluster.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  Inject Cluster Load
+                </button>
+
+                <button id="btnRampModular" class="btn btn-danger" data-tooltip="Automatically ramps stress in steps until inter-worker locks saturate the database queue.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                  Ramp Stress Till Burst
+                </button>
+
+                <button id="btnFixModular" class="btn btn-success hidden" data-tooltip="Enables asynchronous write-behind queues and non-blocking event bus.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Apply Fix
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Live Telemetry & Diagnosis -->
+          <div class="telemetry-column">
+            
+            <div class="card telemetry-card">
+              <h3 class="card-title">
+                <svg class="icon-sm text-emerald" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Cluster Telemetry (Multi-Core)
+              </h3>
+
+              <div class="telemetry-gauges-grid">
+                
+                <div class="gauge-item" data-tooltip="Total requests processed across all worker processes per second.">
+                  <div class="gauge-meta">
+                    <span>Throughput (Speed)</span>
+                    <strong class="mono text-primary" id="telModRps">-- req/s</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-emerald" id="barModRps" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="95% of users receive responses faster than this threshold.">
+                  <div class="gauge-meta">
+                    <span>95% Response Time (p95)</span>
+                    <strong class="mono" id="telModLatency">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-amber" id="barModLatency" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="Total CPU utilization across all configured CPU cores.">
+                  <div class="gauge-meta">
+                    <span>Cluster CPU Utilization</span>
+                    <strong class="mono" id="telModCpu">-- %</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-blue" id="barModCpu" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="Lock wait time during cross-domain database transactions.">
+                  <div class="gauge-meta">
+                    <span>Cross-Domain DB Lock Wait</span>
+                    <strong class="mono" id="telModDbLock">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-danger" id="barModDbLock" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottleneck & Scaling Advisor Card -->
+            <div class="card advisor-diagnosis-card hidden" id="diagModCard">
+              <div class="diag-header">
+                <span class="diag-badge" id="diagModBadge">BOTTLENECK DIAGNOSIS</span>
+                <h4 class="diag-title" id="diagModTitle">Synchronous Database Transaction Contention</h4>
+              </div>
+              <p class="diag-desc" id="diagModDesc">
+                Multi-core CPU is healthy, but synchronous inter-domain SQL transactions cause database write queue saturation.
+              </p>
+
+              <div class="advice-recommend-box">
+                <div class="advice-lbl">WHAT RESOURCE TO INCREASE:</div>
+                <strong id="adviceModAction">Add Asynchronous Write-Behind Message Queue (BullMQ/Redis)</strong>
+                <p id="adviceModImpact" class="advice-impact">Decouples domain state mutations into non-blocking event batches, pushing throughput to ~78,000 req/s.</p>
+              </div>
+
+              <div class="diag-footer">
+                <button id="btnAutoFixMod" class="btn btn-success btn-block" style="margin-bottom: 8px;">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  1-Click Auto-Scale & Apply Fix
+                </button>
+                <button id="btnAdvanceToStage3" class="btn btn-outline-primary btn-block hidden">
+                  Advance to Stage 3: Microservices
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 3: THE MICROSERVICES                                      -->
+      <!-- =============================================================== -->
+      <section id="stage3View" class="lab-stage hidden" style="margin-top: 16px;">
+        
+        <!-- Stage Header Card -->
+        <div class="card stage-hero-card">
+          <div class="stage-badge-row">
+            <span class="badge-pill bg-purple">STAGE 3 OF 3</span>
+            <span class="badge-pill bg-slate">Distributed Services + Network Mesh</span>
+          </div>
+          <h2 class="stage-title">Microservices: Network RPC Overhead & Distributed Concurrency</h2>
+          <p class="stage-desc">
+            Each domain runs in an independent service container with its own database. Learn how services coordinate, measure cross-network latency tax, and see how horizontal autoscaling works.
+          </p>
+        </div>
+
+        <!-- How, What & Why Educational Summary Grid -->
+        <div class="card info-summary-card">
+          <div class="info-grid">
+            <div class="info-cell">
+              <span class="info-tag bg-blue">WHAT IT IS</span>
+              <p>Independently deployed standalone services communicating over network protocols (HTTP/gRPC) behind an API Gateway.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-emerald">HOW IT WORKS</span>
+              <p>Each service manages its dedicated database. Requests hop across network RPC layers with circuit breakers for fault isolation.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-danger">WHY IT BREAKS</span>
+              <p>Multiple synchronous HTTP REST hops add 20ms+ network serialization tax, and high load exhausts socket file descriptors.</p>
+            </div>
+            <div class="info-cell">
+              <span class="info-tag bg-purple">HOW TO SCALE</span>
+              <p>Use gRPC HTTP/2 multiplexing, partition distributed lock keys (Redlock), and add horizontal container pods behind Anycast load balancers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plain English Real-World Example -->
+        <div class="card plain-example-card" style="margin-top: 12px;">
+          <div class="plain-example-header">
+            <span class="badge-pill bg-purple">PLAIN ENGLISH ANALOGY</span>
+            <strong>Separate Independent Shops Across Town</strong>
+          </div>
+          <p>
+            Instead of sharing one kitchen building, the Bakery, Butcher Shop, and Beverage Shop each move into their own separate buildings across the city.
+            To assemble 1 customer dinner, a delivery courier must drive back and forth across traffic between all 3 shops (Network Hop Latency).
+            <strong>When to use this:</strong> Only when your restaurant has 500+ employees and one building physically overflows!
+          </p>
+        </div>
+
+        <div class="stage-split-grid">
+          
+          <!-- Left: Topology & Stress Controller -->
+          <div class="card arch-diagram-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">
+                <svg class="icon-sm text-purple" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                Microservices Network Topology
+              </h3>
+              <button class="btn-link-code" id="btnCodeMicro" data-tooltip="Inspect the microservices API gateway and RPC orchestration code.">
+                <svg class="icon-sm" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                View Code Diff
+              </button>
+            </div>
+
+            <!-- Visual Node Diagram -->
+            <div class="topology-box micro-topo-box">
+              <div class="topo-node topo-client" data-tooltip="Virtual clients sending distributed requests.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <strong id="clientLoadLabel3">50,000+ Users</strong>
+                <span>Flash-Sale Rush</span>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label">API Gateway</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <!-- 3 Service Pods Grid -->
+              <div class="micro-pods-cluster">
+                <div class="micro-pod" id="podCatalog" data-tooltip="Standalone Catalog Microservice on Port 5001.">
+                  <strong>Catalog Service</strong>
+                  <span>Port 5001</span>
+                </div>
+                <div class="micro-pod" id="podOrder" data-tooltip="Standalone Order Microservice on Port 5003.">
+                  <strong>Order Service</strong>
+                  <span>Port 5003</span>
+                </div>
+                <div class="micro-pod" id="podInventory" data-tooltip="Standalone Inventory Microservice on Port 5002.">
+                  <strong>Inventory Pod</strong>
+                  <span id="podInventoryState">Port 5002</span>
+                </div>
+              </div>
+
+              <div class="topo-arrow">
+                <span class="arrow-label" id="topoRpcHopLabel">Network RPC Hops</span>
+                <div class="arrow-line"></div>
+              </div>
+
+              <div class="topo-node topo-db" data-tooltip="Independent, isolated databases per service.">
+                <div class="node-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                </div>
+                <strong>Dedicated DBs</strong>
+                <span>Independent Stores</span>
+              </div>
+            </div>
+
+            <!-- Pod Replicas Slider for Microservices -->
+            <div class="stress-intensity-box" style="margin-bottom: 10px;">
+              <div class="slider-meta">
+                <label for="sliderPods">Microservice Autoscaling Pods:</label>
+                <strong id="valPods" class="mono text-primary">3 Pod Replicas</strong>
+              </div>
+              <input type="range" id="sliderPods" min="1" max="20" step="1" value="3" class="sim-slider" />
+              <div class="slider-ticks">
+                <span>1 Pod</span>
+                <span>5 Pods</span>
+                <span>10 Pods</span>
+                <span>20 Pods (Max)</span>
+              </div>
+            </div>
+
+            <!-- Experiment Trigger Box with Slider & Burst Mode -->
+            <div class="experiment-action-box">
+              <div class="exp-status-row">
+                <span class="exp-label">Configuration State:</span>
+                <span class="status-pill status-unopt" id="microConfigLabel">Synchronous HTTP REST Hops</span>
+              </div>
+
+              <!-- Load Intensity Slider -->
+              <div class="stress-intensity-box">
+                <div class="slider-meta">
+                  <label for="sliderStress3">Load Volume (Requests):</label>
+                  <strong id="valStress3" class="mono text-primary">50,000 req</strong>
+                </div>
+                <input type="range" id="sliderStress3" min="10000" max="300000" step="10000" value="50000" class="sim-slider" />
+                <div class="slider-ticks">
+                  <span>10k (Light)</span>
+                  <span>100k</span>
+                  <span>180k (Burst Limit)</span>
+                  <span>300k+</span>
+                </div>
+              </div>
+
+              <div class="button-row" style="margin-top: 12px;">
+                <button id="btnTestMicro" class="btn btn-primary" data-tooltip="Executes distributed load across chained microservices.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  Inject Distributed Load
+                </button>
+
+                <button id="btnRampMicro" class="btn btn-danger" data-tooltip="Automatically ramps stress in steps (30k -> 80k -> 140k -> 190k) until socket descriptors reach limits.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                  Ramp Stress Till Burst
+                </button>
+
+                <button id="btnFixMicro" class="btn btn-success hidden" data-tooltip="Enables gRPC binary protocol buffers, circuit breakers, and lock sharding.">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Apply Fix
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Live Telemetry & Diagnosis -->
+          <div class="telemetry-column">
+            
+            <div class="card telemetry-card">
+              <h3 class="card-title">
+                <svg class="icon-sm text-purple" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Distributed Network Telemetry
+              </h3>
+
+              <div class="telemetry-gauges-grid">
+                
+                <div class="gauge-item" data-tooltip="Total requests processed across the microservices mesh per second.">
+                  <div class="gauge-meta">
+                    <span>Throughput (Speed)</span>
+                    <strong class="mono text-primary" id="telMicroRps">-- req/s</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-purple" id="barMicroRps" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="Network latency overhead introduced by inter-service RPC serialization.">
+                  <div class="gauge-meta">
+                    <span>Network Hop Latency Overhead</span>
+                    <strong class="mono" id="telMicroNetwork">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-danger" id="barMicroNetwork" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="95% of users receive responses faster than this threshold.">
+                  <div class="gauge-meta">
+                    <span>95% Response Time (p95)</span>
+                    <strong class="mono" id="telMicroLatency">-- ms</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-amber" id="barMicroLatency" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <div class="gauge-item" data-tooltip="Verification that atomic mutex gates prevent overselling during flash-sales.">
+                  <div class="gauge-meta">
+                    <span>Double-Booking Error Rate</span>
+                    <strong class="mono text-emerald" id="telMicroErrors">0 errors (Zero)</strong>
+                  </div>
+                  <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill bg-emerald" style="width: 100%;"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottleneck & Scaling Advisor Card -->
+            <div class="card advisor-diagnosis-card hidden" id="diagMicroCard">
+              <div class="diag-header">
+                <span class="diag-badge" id="diagMicroBadge">BOTTLENECK DIAGNOSIS</span>
+                <h4 class="diag-title" id="diagMicroTitle">Cascading Network RPC Serialization Overhead</h4>
+              </div>
+              <p class="diag-desc" id="diagMicroDesc">
+                Chained synchronous HTTP JSON hops between 4 services introduce 24ms network latency and unpartitioned lock contention.
+              </p>
+
+              <div class="advice-recommend-box">
+                <div class="advice-lbl">WHAT RESOURCE TO INCREASE:</div>
+                <strong id="adviceMicroAction">Enable gRPC HTTP/2 Multiplexing, Circuit Breakers & Distributed Redlock Sharding</strong>
+                <p id="adviceMicroImpact" class="advice-impact">Drops network hop latency to 2.1ms and scales horizontally beyond 165,000+ req/s.</p>
+              </div>
+
+              <div class="diag-footer">
+                <button id="btnAutoFixMicro" class="btn btn-success btn-block" style="margin-bottom: 8px;">
+                  <svg class="icon-sm" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  1-Click Auto-Scale & Apply Fix
+                </button>
+                <button id="btnAdvanceToStage4" class="btn btn-outline-primary btn-block hidden">
+                  View Architecture Comparison Matrix
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 4: COMPARISON MATRIX & INTERACTIVE REQUEST SANDBOX       -->
+      <!-- =============================================================== -->
+      <section id="stage4View" class="lab-stage hidden" style="margin-top: 16px;">
+        
+        <div class="card stage-hero-card">
+          <div class="stage-badge-row">
+            <span class="badge-pill bg-blue">COMPREHENSIVE SUMMARY</span>
+            <span class="badge-pill bg-emerald">All 3 Paradigms Compared</span>
+          </div>
+          <h2 class="stage-title">Architectural Boundaries & Scaling Decision Matrix</h2>
+          <p class="stage-desc">
+            Summary of exact physical breaking points, sweet spots, failure modes, and what to increase at each engineering stage:
+          </p>
+        </div>
+
+        <!-- Architecture Decision Wizard: When to Use What, Why & How -->
+        <div class="card decision-wizard-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Architecture Decision Wizard: When to Use What & Why
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Configure your project parameters to get a dynamic architectural recommendation with exact trade-offs and scaling remedies.</p>
+            </div>
+          </div>
+
+          <div class="wizard-grid" style="margin-top: 14px;">
+            
+            <!-- Custom Dropdown 1: Team Size -->
+            <div class="wizard-input-group">
+              <label class="wizard-label">1. Engineering Team Size</label>
+              <div class="custom-dropdown" data-target="wizTeamSize">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">6 - 20 Engineers (Domain squads)</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="small">1 - 5 Engineers (Startup / Fast velocity)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="medium">6 - 20 Engineers (Domain squads)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="large">20+ Engineers (Multi-team org)</div>
+                </div>
+                <input type="hidden" id="wizTeamSize" value="medium" />
+              </div>
+            </div>
+
+            <!-- Custom Dropdown 2: Peak Throughput -->
+            <div class="wizard-input-group">
+              <label class="wizard-label">2. Target Peak Throughput</label>
+              <div class="custom-dropdown" data-target="wizTraffic">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">20,000 - 80,000 req/s (High Concurrency)</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="low">&lt; 20,000 req/s (Standard Web Load)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="medium">20,000 - 80,000 req/s (High Concurrency)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="high">100,000+ req/s (Flash-Sale / Massive Scale)</div>
+                </div>
+                <input type="hidden" id="wizTraffic" value="medium" />
+              </div>
+            </div>
+
+            <!-- Custom Dropdown 3: Consistency Requirement -->
+            <div class="wizard-input-group">
+              <label class="wizard-label">3. Data Consistency Requirement</label>
+              <div class="custom-dropdown" data-target="wizConsistency">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">Domain-segregated with Eventual Consistency</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="acid">Strict ACID Single Database (Zero race conditions)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="eventual">Domain-segregated with Eventual Consistency</div>
+                  <div class="custom-dropdown-item" role="option" data-value="distributed">Decoupled independent DBs per service</div>
+                </div>
+                <input type="hidden" id="wizConsistency" value="eventual" />
+              </div>
+            </div>
+
+            <!-- Custom Dropdown 4: DevOps Budget -->
+            <div class="wizard-input-group">
+              <label class="wizard-label">4. DevOps & Cloud Budget</label>
+              <div class="custom-dropdown" data-target="wizDevOps">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">Moderate (Docker container clusters)</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="low">Low / Zero DevOps (1-server deployment)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="medium">Moderate (Docker container clusters)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="high">High (Kubernetes Mesh + Distributed Tracing)</div>
+                </div>
+                <input type="hidden" id="wizDevOps" value="medium" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Recommendation Result Box -->
+          <div class="wizard-recommendation-box" id="wizRecBox" style="margin-top: 16px;">
+            <div class="rec-header">
+              <span class="badge-pill bg-emerald" id="wizRecBadge">RECOMMENDED: MODULAR MONOLITH</span>
+              <strong class="rec-title" id="wizRecTitle">Domain Isolated Multi-Core Monolith</strong>
+            </div>
+            <div class="rec-body">
+              <div class="rec-point">
+                <strong>WHY THIS FITS:</strong>
+                <span id="wizRecWhy">Provides domain separation for 6-20 engineers and 80k req/s throughput with cluster.fork() without microservices network serialization overhead.</span>
+              </div>
+              <div class="rec-point">
+                <strong>WHAT TO WATCH:</strong>
+                <span id="wizRecWatch">Avoid synchronous cross-domain database transactions. Use the asynchronous in-memory event bus (eventBus.js).</span>
+              </div>
+              <div class="rec-point">
+                <strong>HOW TO SCALE WHEN EXPANDING:</strong>
+                <span id="wizRecHow">Add a write-behind queue (BullMQ/Redis), then extract high-traffic domains into standalone microservices.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Cloud Pricing & Cost ROI Comparison Matrix -->
+        <div class="card multi-cloud-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                Multi-Cloud Cost & ROI Matrix (Configured Hardware Deployment)
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Live cost projection of your custom architecture specs across AWS, Google Cloud, DigitalOcean, and Bare-Metal Kubernetes:</p>
+            </div>
+          </div>
+
+          <div class="cloud-pricing-grid" style="margin-top: 14px;">
+            <div class="cloud-col">
+              <div class="cloud-header">
+                <strong>Amazon Web Services (AWS)</strong>
+                <span class="badge-pill bg-blue">EC2 + MSK + RDS</span>
+              </div>
+              <strong class="cloud-price mono text-primary" id="cloudCostAws">$33.50 / mo</strong>
+              <span class="cloud-detail">c6g ARM vCPU + MSK Kafka</span>
+            </div>
+
+            <div class="cloud-col">
+              <div class="cloud-header">
+                <strong>Google Cloud Platform (GCP)</strong>
+                <span class="badge-pill bg-emerald">GCE + PubSub + CloudSQL</span>
+              </div>
+              <strong class="cloud-price mono text-emerald" id="cloudCostGcp">$30.80 / mo</strong>
+              <span class="cloud-detail">N2D Compute + Cloud Pub/Sub</span>
+            </div>
+
+            <div class="cloud-col">
+              <div class="cloud-header">
+                <strong>DigitalOcean</strong>
+                <span class="badge-pill bg-purple">Droplets + Managed DB</span>
+              </div>
+              <strong class="cloud-price mono text-purple" id="cloudCostDo">$26.00 / mo</strong>
+              <span class="cloud-detail">Standard Dedicated Droplets</span>
+            </div>
+
+            <div class="cloud-col">
+              <div class="cloud-header">
+                <strong>Bare-Metal Kubernetes</strong>
+                <span class="badge-pill bg-slate">Hetzner / OVH Flat</span>
+              </div>
+              <strong class="cloud-price mono" id="cloudCostBare">$48.20 / mo</strong>
+              <span class="cloud-detail">Dedicated Server Hardware</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Protocols, Boundaries & Rate-Limiting Masterclass Hub -->
+        <div class="card api-masterclass-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                API Protocols, Wire Framing & Rate Limiting Masterclass
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Interactive exploration of wire serialization (JSON vs Protobuf), transport protocols (HTTP/1.1 vs HTTP/2 vs gRPC), and production rate limiting algorithms:</p>
+            </div>
+          </div>
+
+          <!-- Masterclass Subgrid: Protocol Inspector & Rate Limiter Simulator -->
+          <div class="api-masterclass-grid" style="margin-top: 14px;">
+            
+            <!-- Sub-Card 1: Protocol & Wire Framing Explorer -->
+            <div class="api-subcard">
+              <div class="api-subcard-header">
+                <span class="badge-pill bg-blue">PROTOCOL & WIRE INSPECTOR</span>
+                <strong style="font-size: 13px;">Transport & Serialization Lab</strong>
+              </div>
+
+              <div class="api-ctrl-row" style="margin-top: 10px;">
+                <label class="wizard-label">Transport Protocol:</label>
+                <div class="custom-dropdown" data-target="apiProtoSelect">
+                  <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="dropdown-value">HTTP/2 (Multiplexed Streams)</span>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="custom-dropdown-menu" role="listbox">
+                    <div class="custom-dropdown-item" role="option" data-value="http1">HTTP/1.1 REST (Sequential Head-of-Line Blocking)</div>
+                    <div class="custom-dropdown-item selected" role="option" data-value="http2">HTTP/2 REST (Multiplexed Single TCP Socket)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="http3">HTTP/3 QUIC (UDP 0-RTT, Packet-Loss Resilient)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="grpc">gRPC (HTTP/2 + Binary Protobuf Streams)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="graphql">GraphQL (Single-Endpoint Custom Projection)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="websocket">WebSocket (Persistent Full-Duplex TCP)</div>
+                  </div>
+                  <input type="hidden" id="apiProtoSelect" value="http2" />
+                </div>
+              </div>
+
+              <div class="api-ctrl-row" style="margin-top: 8px;">
+                <label class="wizard-label">Serialization & Compression:</label>
+                <div class="custom-dropdown" data-target="apiFormatSelect">
+                  <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="dropdown-value">JSON + Gzip Compression</span>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="custom-dropdown-menu" role="listbox">
+                    <div class="custom-dropdown-item" role="option" data-value="json_raw">JSON Raw Text (Uncompressed)</div>
+                    <div class="custom-dropdown-item selected" role="option" data-value="json_gzip">JSON + Gzip Compression</div>
+                    <div class="custom-dropdown-item" role="option" data-value="protobuf">Protocol Buffers (Binary Encoded)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="msgpack">MessagePack Binary</div>
+                  </div>
+                  <input type="hidden" id="apiFormatSelect" value="json_gzip" />
+                </div>
+              </div>
+
+              <!-- Wire Telemetry Metrics -->
+              <div class="api-telemetry-box" style="margin-top: 12px;">
+                <div class="api-tel-item">
+                  <span class="lbl-small">Wire Payload Size:</span>
+                  <strong class="mono text-primary" id="apiWireSize">4.2 KB (68% smaller)</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">TCP Handshake Tax:</span>
+                  <strong class="mono text-emerald" id="apiTcpTax">0.0 ms (Connection Reused)</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">Serialization CPU Overhead:</span>
+                  <strong class="mono" id="apiCpuOverhead">0.12 ms</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">Head-of-Line Blocking:</span>
+                  <strong class="mono text-emerald" id="apiHolStatus">Zero (Multiplexed Streams)</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sub-Card 2: Rate Limiting & Throttling Simulator -->
+            <div class="api-subcard">
+              <div class="api-subcard-header">
+                <span class="badge-pill bg-purple">RATE LIMITING SIMULATOR</span>
+                <strong style="font-size: 13px;">Boundary Throttling & 429 Defense</strong>
+              </div>
+
+              <div class="api-ctrl-row" style="margin-top: 10px;">
+                <label class="wizard-label">Rate Limiter Algorithm:</label>
+                <div class="custom-dropdown" data-target="apiRateAlgoSelect">
+                  <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="dropdown-value">Token Bucket (AWS / Stripe Standard)</span>
+                    <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="custom-dropdown-menu" role="listbox">
+                    <div class="custom-dropdown-item selected" role="option" data-value="token_bucket">Token Bucket (Allows bursts, steady refill - AWS/Stripe)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="leaky_bucket">Leaky Bucket (Constant outflow rate - Shopify)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="sliding_window">Sliding Window Counter (High accuracy - Cloudflare)</div>
+                    <div class="custom-dropdown-item" role="option" data-value="fixed_window">Fixed Window (Classic 2x boundary burst flaw)</div>
+                  </div>
+                  <input type="hidden" id="apiRateAlgoSelect" value="token_bucket" />
+                </div>
+              </div>
+
+              <div class="api-ctrl-row" style="margin-top: 8px;">
+                <div class="slider-meta">
+                  <label for="apiBurstSlider">Simulated Client Request Burst:</label>
+                  <strong id="valApiBurst" class="mono text-primary">1,200 req/s</strong>
+                </div>
+                <input type="range" id="apiBurstSlider" min="100" max="5000" step="100" value="1200" class="sim-slider" />
+              </div>
+
+              <!-- Rate Limiting Live Status -->
+              <div class="api-telemetry-box" style="margin-top: 12px;">
+                <div class="api-tel-item">
+                  <span class="lbl-small">Requests Allowed (200 OK):</span>
+                  <strong class="mono text-emerald" id="apiAllowedCount">1,000 req/s (100%)</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">Throttled (429 Too Many Requests):</span>
+                  <strong class="mono text-danger" id="apiThrottledCount">200 req/s (Throttled)</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">Retry-After Header:</span>
+                  <strong class="mono" id="apiRetryAfter">Retry-After: 0.8s</strong>
+                </div>
+                <div class="api-tel-item">
+                  <span class="lbl-small">Limiter Algorithm Assessment:</span>
+                  <strong class="mono text-primary" id="apiAlgoAssessment">Smooth refill preserves burst capacity</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- What Helps vs What Hurts API Production Checklist -->
+          <div class="api-checklist-grid" style="margin-top: 16px;">
+            
+            <!-- What Helps Column -->
+            <div class="api-checklist-col col-helps">
+              <div class="checklist-header text-emerald">
+                <svg class="icon-sm text-emerald" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <strong>What Helps: Essential API Performance Patterns</strong>
+              </div>
+              <ul class="checklist-items">
+                <li>
+                  <strong>Idempotency Keys (<code>Idempotency-Key: uuid</code>):</strong>
+                  <span>Prevents double-charges during retries. <em>Analogy: Like an elevator button — clicking floor 4 ten times still takes you to floor 4 once without charging 10 rides.</em></span>
+                </li>
+                <li>
+                  <strong>Conditional ETags (<code>If-None-Match</code>):</strong>
+                  <span>Returns lightweight <code>304 Not Modified</code> with 0-byte payload. <em>Analogy: Asking "Anything changed?" and getting an instant "Nope" instead of re-reading a 500-page book.</em></span>
+                </li>
+                <li>
+                  <strong>Persistent HTTP Keep-Alive & Connection Pooling:</strong>
+                  <span>Reuses TCP sockets, cutting 30-80ms lag. <em>Analogy: Staying on an active phone call instead of hanging up and redialing before every sentence.</em></span>
+                </li>
+                <li>
+                  <strong>Cursor-Based Keyset Pagination (<code>WHERE id &gt; cursor</code>):</strong>
+                  <span>Eliminates slow full-table scans. <em>Analogy: Putting a physical bookmark in a book instead of counting 100,000 pages from page 1 every time.</em></span>
+                </li>
+                <li>
+                  <strong>Circuit Breakers with Exponential Jitter:</strong>
+                  <span>Isolates failing microservices. <em>Analogy: Like a household electrical fuse that trips safely to protect your house when an appliance shorts out.</em></span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- What Hurts Column -->
+            <div class="api-checklist-col col-hurts">
+              <div class="checklist-header text-danger">
+                <svg class="icon-sm text-danger" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <strong>What Hurts: Hidden Obstacles & Production Bottlenecks</strong>
+              </div>
+              <ul class="checklist-items">
+                <li>
+                  <strong>The N+1 Database Query Trap:</strong>
+                  <span>Running 100 separate queries. <em>Analogy: Driving to the grocery store 100 times to buy 1 item each trip, instead of buying all 100 items in 1 shopping cart.</em></span>
+                </li>
+                <li>
+                  <strong>Synchronous Chained REST Waterfalls:</strong>
+                  <span>Chaining 4 synchronous microservice hops. <em>Analogy: Passing a message down a 4-person chain where each person waits for the next before speaking.</em></span>
+                </li>
+                <li>
+                  <strong>Unbounded Responses (No Max Limit):</strong>
+                  <span>Returning 50,000 JSON rows. <em>Analogy: Asking a librarian for "some reading material" and having them dump 50,000 heavy encyclopedias on your lap.</em></span>
+                </li>
+                <li>
+                  <strong>Missing Socket & Request Timeouts:</strong>
+                  <span>Hanging network sockets leak descriptors. <em>Analogy: Leaving a garden hose running indefinitely until the water tank completely runs dry.</em></span>
+                </li>
+                <li>
+                  <strong>Synchronized Retries Without Jitter:</strong>
+                  <span>Clients retry at the exact same millisecond. <em>Analogy: 5,000 people rushing through a single store door at the exact same second after a blackout.</em></span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Matrix Table -->
+        <div class="card table-card" style="margin-top: 16px;">
+          <div class="table-responsive">
+            <table class="light-table">
+              <thead>
+                <tr>
+                  <th>Architecture Paradigm</th>
+                  <th>Throughput Ceiling</th>
+                  <th>Physical Burst Limit</th>
+                  <th>Network Hop Latency</th>
+                  <th>Failure Blast Radius</th>
+                  <th>Team Size Sweet Spot</th>
+                  <th>What to Scale First</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Single Monolith</strong>
+                    <div class="mono text-muted" style="font-size: 11px;">1 Process / 1 DB</div>
+                  </td>
+                  <td class="mono font-bold text-primary">25,000 – 35,000 req/s</td>
+                  <td><span class="badge-pill bg-danger-light">~35k req/s (1-Core Max)</span></td>
+                  <td class="mono text-emerald">0.00 ms (In-Memory)</td>
+                  <td><span class="badge-pill bg-danger-light">100% Process Crash</span></td>
+                  <td>1 – 8 Engineers</td>
+                  <td><span class="badge-pill bg-blue">In-Memory Cache (Redis) + DB Pool</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Modular Monolith</strong>
+                    <div class="mono text-muted" style="font-size: 11px;">Domain Isolated / Multi-Core</div>
+                  </td>
+                  <td class="mono font-bold text-primary">60,000 – 90,000 req/s</td>
+                  <td><span class="badge-pill bg-danger-light">~85k req/s (IPC Bus Max)</span></td>
+                  <td class="mono text-emerald">0.05 ms (IPC Events)</td>
+                  <td><span class="badge-pill bg-emerald-light">Domain Isolated (Worker Restart)</span></td>
+                  <td>6 – 20 Engineers</td>
+                  <td><span class="badge-pill bg-emerald">Write-Behind Message Queue (BullMQ)</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Microservices</strong>
+                    <div class="mono text-muted" style="font-size: 11px;">Decoupled Network Mesh</div>
+                  </td>
+                  <td class="mono font-bold text-primary">100,000+ to Millions req/s</td>
+                  <td><span class="badge-pill bg-emerald-light">180k+ / pod (Horizontal)</span></td>
+                  <td class="mono text-danger">2.0 – 5.0 ms (gRPC/HTTP)</td>
+                  <td><span class="badge-pill bg-emerald-light">Service Isolated (Circuit Breakers)</span></td>
+                  <td>15+ Engineers (Squads)</td>
+                  <td><span class="badge-pill bg-purple">gRPC Multiplexing + Key Sharding</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Interactive Live Multi-Architecture Request Sandbox -->
+        <div class="card sandbox-card" style="margin-top: 20px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                Live Multi-Architecture Request Sandbox
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Fire real HTTP requests simultaneously at all three mounted architectures and compare live execution latency.</p>
+            </div>
+          </div>
+
+          <div class="sandbox-controls-row" style="margin-top: 14px;">
+            <div class="sandbox-quick-btns">
+              <span class="lbl-small">Quick Test Request:</span>
+              <button class="btn btn-secondary btn-sm sandbox-btn" data-method="GET" data-url="/products">GET /products</button>
+              <button class="btn btn-secondary btn-sm sandbox-btn" data-method="GET" data-url="/products/p1">GET /products/p1</button>
+              <button class="btn btn-secondary btn-sm sandbox-btn" data-method="POST" data-url="/orders/checkout" data-body='{"productId":"p1","userId":"alex"}'>POST /orders/checkout (Atomic)</button>
+            </div>
+          </div>
+
+          <!-- 3 Side-by-Side Response Cards -->
+          <div class="sandbox-responses-grid" style="margin-top: 14px;">
+            
+            <div class="sandbox-col">
+              <div class="s-col-header">
+                <span class="badge-pill bg-blue">01. MONOLITH</span>
+                <span class="mono text-muted" id="sbLatencyMono">-- ms</span>
+              </div>
+              <div class="s-response-box">
+                <pre class="json-code" id="sbResMono">// Click a request button above to execute</pre>
+              </div>
+            </div>
+
+            <div class="sandbox-col">
+              <div class="s-col-header">
+                <span class="badge-pill bg-emerald">02. MODULAR MONOLITH</span>
+                <span class="mono text-muted" id="sbLatencyMod">-- ms</span>
+              </div>
+              <div class="s-response-box">
+                <pre class="json-code" id="sbResMod">// Click a request button above to execute</pre>
+              </div>
+            </div>
+
+            <div class="sandbox-col">
+              <div class="s-col-header">
+                <span class="badge-pill bg-purple">03. MICROSERVICES</span>
+                <span class="mono text-muted" id="sbLatencyMicro">-- ms</span>
+              </div>
+              <div class="s-response-box">
+                <pre class="json-code" id="sbResMicro">// Click a request button above to execute</pre>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="summary-actions-row" style="margin-top: 24px;">
+          <button id="btnExportReport" class="btn btn-primary btn-lg" data-tooltip="Download or copy a formatted performance report of your benchmark results.">
+            <svg class="icon-sm" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export Benchmark Report
+          </button>
+
+          <button id="btnRestartLab" class="btn btn-secondary btn-lg" data-tooltip="Reset all stages and restart the guided architecture learning lab.">
+            <svg class="icon-sm" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            Restart Guided Architecture Lab
+          </button>
+        </div>
+
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- STAGE 5: SYSTEM DESIGN CAPACITY CALCULATOR & CAP THEOREM LAB    -->
+      <!-- =============================================================== -->
+      <section class="lab-stage hidden" id="stage5">
+        
+        <!-- Header -->
+        <div class="stage-header">
+          <div class="stage-tag-row">
+            <span class="badge-pill bg-purple">STAGE 05: ADVANCED ARCHITECTURE</span>
+            <span class="badge-pill bg-blue">CAPACITY PLANNING & DISTRIBUTED CONSENSUS</span>
+          </div>
+          <h2 class="stage-title">System Design Capacity Planner & Distributed CAP / SAGA Lab</h2>
+          <p class="stage-desc">
+            Calculate real-world production hardware requirements from business user metrics, test CAP theorem network partitions, and observe SAGA compensating rollbacks step-by-step.
+          </p>
+        </div>
+
+        <!-- 1. System Design Hardware Capacity Calculator -->
+        <div class="card sysdesign-calc-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="10" x2="8.01" y2="10"></line><line x1="12" y1="10" x2="12.01" y2="10"></line><line x1="16" y1="10" x2="16.01" y2="10"></line></svg>
+                System Design Capacity Calculator (From DAU to Hardware Sizing)
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Adjust business user metrics to compute required QPS, bandwidth, cache RAM, and storage growth:</p>
+            </div>
+          </div>
+
+          <div class="sysdesign-inputs-grid" style="margin-top: 14px;">
+            
+            <div class="devops-control-item">
+              <div class="slider-meta">
+                <label for="sysDauSlider">Daily Active Users (DAU):</label>
+                <strong id="valSysDau" class="mono text-primary">5,000,000 DAU</strong>
+              </div>
+              <input type="range" id="sysDauSlider" min="50000" max="50000000" step="50000" value="5000000" class="sim-slider" />
+            </div>
+
+            <div class="devops-control-item">
+              <label class="wizard-label" style="margin-bottom: 6px;">Read : Write Ratio:</label>
+              <div class="custom-dropdown" data-target="sysRwRatioSelect">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">50 : 1 (Read-Heavy / Twitter style)</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="100">100 : 1 (Extreme Read / E-Commerce)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="50">50 : 1 (Read-Heavy / Social Feed)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="10">10 : 1 (Moderate / Collaborative Docs)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="1">1 : 1 (Write-Heavy / IoT & Telemetry)</div>
+                </div>
+                <input type="hidden" id="sysRwRatioSelect" value="50" />
+              </div>
+            </div>
+
+            <div class="devops-control-item">
+              <label class="wizard-label" style="margin-bottom: 6px;">Avg Request Payload:</label>
+              <div class="custom-dropdown" data-target="sysPayloadSelect">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">10 KB (Medium JSON Profile)</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="2">2 KB (Lightweight REST / Auth)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="10">10 KB (Medium JSON Profile)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="50">50 KB (Heavy Catalog & Images)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="200">200 KB (Bulk Batch Mutation)</div>
+                </div>
+                <input type="hidden" id="sysPayloadSelect" value="10" />
+              </div>
+            </div>
+
+            <div class="devops-control-item">
+              <label class="wizard-label" style="margin-bottom: 6px;">Data Retention Period:</label>
+              <div class="custom-dropdown" data-target="sysRetentionSelect">
+                <button type="button" class="custom-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dropdown-value">1 Year Active Retention</span>
+                  <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="custom-dropdown-menu" role="listbox">
+                  <div class="custom-dropdown-item" role="option" data-value="30">30 Days (Ephemeral Cache)</div>
+                  <div class="custom-dropdown-item" role="option" data-value="180">180 Days (Standard Logs)</div>
+                  <div class="custom-dropdown-item selected" role="option" data-value="365">1 Year Active Retention</div>
+                  <div class="custom-dropdown-item" role="option" data-value="1825">5 Years (Compliance Archive)</div>
+                </div>
+                <input type="hidden" id="sysRetentionSelect" value="365" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Calculated Capacity Metrics Grid -->
+          <div class="sysdesign-output-grid" style="margin-top: 16px;">
+            
+            <div class="sys-metric-card">
+              <span class="metric-lbl">PEAK QUERY THROUGHPUT:</span>
+              <strong class="mono text-primary" id="sysPeakQps">17,361 req/s</strong>
+              <span class="metric-sub" id="sysAvgQps">Avg: 5,787 req/s (3x Peak)</span>
+            </div>
+
+            <div class="sys-metric-card">
+              <span class="metric-lbl">INGRESS / EGRESS BANDWIDTH:</span>
+              <strong class="mono text-emerald" id="sysBandwidth">1.39 Gbps</strong>
+              <span class="metric-sub" id="sysBandwidthGb">~174 MB/sec Network I/O</span>
+            </div>
+
+            <div class="sys-metric-card">
+              <span class="metric-lbl">CACHE RAM (80/20 PARETO):</span>
+              <strong class="mono text-purple" id="sysCacheRam">19.6 GB RAM</strong>
+              <span class="metric-sub">Caches 20% hot daily read traffic</span>
+            </div>
+
+            <div class="sys-metric-card">
+              <span class="metric-lbl">STORAGE GROWTH (1 YEAR):</span>
+              <strong class="mono text-amber" id="sysStorageGrowth">35.8 TB / year</strong>
+              <span class="metric-sub" id="sysStorageDaily">~98.0 GB / day data writes</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2. CAP Theorem & SAGA Pattern Simulator Grid -->
+        <div class="distributed-labs-grid" style="margin-top: 16px;">
+          
+          <!-- Sub-Card 1: CAP Theorem & Network Split Simulator -->
+          <div class="card distributed-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  CAP Theorem & Partition Split Simulator
+                </h3>
+                <p class="section-desc" style="margin-bottom: 0;"><strong>Everyday Analogy:</strong> Like an offline ATM when its network cable is cut. Does it hand out $100 cash anyway (High Availability - AP), or display "Temporarily Offline" to prevent overdrafts (Strict Consistency - CP)?</p>
+              </div>
+            </div>
+
+            <div class="cap-controls-row" style="margin-top: 12px;">
+              <button class="btn btn-danger btn-sm" id="btnTogglePartition">
+                <svg class="icon-sm" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Inject Network Partition Split
+              </button>
+              
+              <div class="cap-mode-pills">
+                <button class="btn-cap active" id="btnCapCP" data-mode="cp">CP (Strict Consistency - 2PC)</button>
+                <button class="btn-cap" id="btnCapAP" data-mode="ap">AP (High Availability - Eventual)</button>
+              </div>
+            </div>
+
+            <div class="cap-status-box" id="capStatusBox" style="margin-top: 12px;">
+              <div class="cap-node-cluster">
+                <div class="cap-node healthy" id="capNode1">
+                  <strong>Node A (Primary Zone)</strong>
+                  <span class="mono">State: Quorum Leader</span>
+                </div>
+                <div class="cap-split-line" id="capSplitLine">
+                  <span class="split-label">Active WAN Link</span>
+                </div>
+                <div class="cap-node healthy" id="capNode2">
+                  <strong>Node B (Secondary Zone)</strong>
+                  <span class="mono">State: Sync Replica</span>
+                </div>
+              </div>
+
+              <p class="cap-explanation" id="capExplanation" style="margin-top: 10px;">
+                <strong>Normal Healthy Operations:</strong> Both availability zones replicate data synchronously with zero dirty reads and zero downtime.
+              </p>
+            </div>
+          </div>
+
+          <!-- Sub-Card 2: SAGA Distributed Transaction Rollback Visualizer -->
+          <div class="card distributed-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                  SAGA Pattern Distributed Transaction Visualizer
+                </h3>
+                <p class="section-desc" style="margin-bottom: 0;"><strong>Everyday Analogy:</strong> Like booking a vacation package (Flight + Hotel + Car). If the hotel is sold out on step 3, the system automatically cancels the flight and refunds your card so you aren't stranded!</p>
+              </div>
+            </div>
+
+            <div class="saga-actions-row" style="margin-top: 12px;">
+              <button class="btn btn-success btn-sm" id="btnRunSagaSuccess">
+                Run Successful SAGA
+              </button>
+              <button class="btn btn-danger btn-sm" id="btnRunSagaFailure">
+                Simulate Step 3 Failure & Rollback
+              </button>
+            </div>
+
+            <!-- SAGA 4-Step Pipeline -->
+            <div class="saga-pipeline-box" style="margin-top: 14px;">
+              <div class="saga-step" id="sagaStep1">
+                <span class="step-badge">1</span>
+                <strong>Create Order</strong>
+                <span class="saga-status mono">Ready</span>
+              </div>
+              <div class="saga-arrow">&rarr;</div>
+              <div class="saga-step" id="sagaStep2">
+                <span class="step-badge">2</span>
+                <strong>Reserve Payment</strong>
+                <span class="saga-status mono">Ready</span>
+              </div>
+              <div class="saga-arrow">&rarr;</div>
+              <div class="saga-step" id="sagaStep3">
+                <span class="step-badge">3</span>
+                <strong>Deduct Stock</strong>
+                <span class="saga-status mono">Ready</span>
+              </div>
+              <div class="saga-arrow">&rarr;</div>
+              <div class="saga-step" id="sagaStep4">
+                <span class="step-badge">4</span>
+                <strong>Dispatch Order</strong>
+                <span class="saga-status mono">Ready</span>
+              </div>
+            </div>
+
+            <p class="saga-desc-box mono" id="sagaLiveDesc" style="margin-top: 12px;">
+              Ready to simulate distributed transaction saga.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 3. Live Database Query Execution & Indexing Inspector -->
+        <div class="card query-inspector-card" style="margin-top: 16px;">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title">
+                <svg class="icon-sm text-primary" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                Database Query Execution & Indexing Inspector (EXPLAIN ANALYZE)
+              </h3>
+              <p class="section-desc" style="margin-bottom: 0;">Compare real query execution costs across Sequential Table Scans, B-Tree Indexes, In-Memory Hashes, and Distributed Sharding:</p>
+            </div>
+          </div>
+
+          <div class="query-compare-grid" style="margin-top: 14px;">
+            
+            <div class="query-card">
+              <div class="query-header">
+                <span class="badge-pill bg-danger">O(N) SEQUENTIAL TABLE SCAN</span>
+                <strong>Unindexed SQL Query</strong>
+              </div>
+              <pre class="query-code">SELECT * FROM orders WHERE user_email = 'alex@example.com';</pre>
+              <div class="query-stat-row">
+                <span>Execution Time: <strong class="mono text-danger">128.4 ms</strong></span>
+                <span>Disk Cost: <strong class="mono text-danger">Cost: 14,820 (Full Scan)</strong></span>
+              </div>
+              <p class="query-note">Scans 1,000,000 rows sequentially from disk, locking table rows and holding CPU.</p>
+            </div>
+
+            <div class="query-card">
+              <div class="query-header">
+                <span class="badge-pill bg-blue">O(log N) B-TREE INDEX SEEK</span>
+                <strong>Indexed B-Tree Seek</strong>
+              </div>
+              <pre class="query-code">SELECT * FROM orders WHERE id = 42; -- (Primary Key B-Tree)</pre>
+              <div class="query-stat-row">
+                <span>Execution Time: <strong class="mono text-primary">1.15 ms</strong></span>
+                <span>Disk Cost: <strong class="mono text-primary">Cost: 4.2 (Index Seek)</strong></span>
+              </div>
+              <p class="query-note">Traverses 3 B-Tree depth levels directly to pointer location in logarithmic time.</p>
+            </div>
+
+            <div class="query-card">
+              <div class="query-header">
+                <span class="badge-pill bg-emerald">O(1) IN-MEMORY HASH MAP</span>
+                <strong>Redis Cache Hash</strong>
+              </div>
+              <pre class="query-code">HGET product:p1 name; -- (In-Memory Redis Hash)</pre>
+              <div class="query-stat-row">
+                <span>Execution Time: <strong class="mono text-emerald">0.05 ms</strong></span>
+                <span>Memory Cost: <strong class="mono text-emerald">0 Disk I/O (RAM Cache)</strong></span>
+              </div>
+              <p class="query-note">Direct memory pointer dereference in constant time with 0.05ms read latency.</p>
+            </div>
+
+            <div class="query-card">
+              <div class="query-header">
+                <span class="badge-pill bg-purple">DISTRIBUTED SCATTER-GATHER</span>
+                <strong>Sharded NoSQL Query</strong>
+              </div>
+              <pre class="query-code">SELECT * FROM orders WHERE region = 'EU' ORDER BY date DESC;</pre>
+              <div class="query-stat-row">
+                <span>Execution Time: <strong class="mono text-purple">9.80 ms</strong></span>
+                <span>Network Cost: <strong class="mono text-purple">Scatter to 8 Shards + Merge</strong></span>
+              </div>
+              <p class="query-note">Broadcasts query to 8 container shards, sorting and merging results at the coordinator.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Custom Modal: Code Deep-Dive Modal -->
+    <div id="codeModal" class="modal-backdrop hidden">
+      <div class="custom-dialog-card modal-large">
+        <div class="modal-header-row">
+          <h3 class="dialog-title" id="codeModalTitle">Code Implementation Deep-Dive</h3>
+          <button class="modal-close-icon" id="closeCodeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="section-desc" id="codeModalDesc">Inspect the exact lines of code that cause the bottleneck vs the optimized solution.</p>
+          <div class="code-diff-container" id="codeDiffContent">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Modal: Export Report Modal -->
+    <div id="exportModal" class="modal-backdrop hidden">
+      <div class="custom-dialog-card modal-large">
+        <div class="modal-header-row">
+          <h3 class="dialog-title">ScaleMatrix Performance Benchmark Report</h3>
+          <button class="modal-close-icon" id="closeExportModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="section-desc">Copy or download your complete architectural performance telemetry report:</p>
+          <textarea id="exportReportText" class="form-textarea code-textarea" rows="12" readonly></textarea>
+          <div class="dialog-actions" style="margin-top: 14px;">
+            <button id="btnCopyReport" class="btn btn-primary">
+              <svg class="icon-sm" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy to Clipboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Notification Toast Container -->
+    <div id="customAlertContainer" class="alert-container"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

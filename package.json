@@ -1,0 +1,19 @@
+{
+  "name": "pulsescale-simple",
+  "version": "1.0.0",
+  "description": "Architecture Boundaries & Scaling Lab: Monolith vs Modular Monolith vs Microservices",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start:monolith": "node 01-monolith/server.js",
+    "start:modular": "node 02-modular-monolith/server.js",
+    "start:microservices": "node 03-microservices/start-all.js",
+    "test:all": "node benchmark-suite.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  }
+}
